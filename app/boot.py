@@ -14,7 +14,6 @@ SSID_TO_CONNECT = config.settings['wifi']['ssid']
 WIFI_PASSWORD = config.settings['wifi']['password']
 #Device Settings
 NEOPIXEL_PIN = config.settings.get('neopixel_pin', 5)
-BUTTON_PIN = config.settings.get('button_pin', 13)
 NUMLEDS = config.settings.get('numleds', 1)
 #OTA Settings
 GITUSER = config.settings['ota']['gituser']
