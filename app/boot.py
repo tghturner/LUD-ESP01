@@ -1,4 +1,4 @@
-import uos, machine, gc, network, time, json
+import uos, machine, gc, network, time, json, neopixel
 
 # Collect garbage
 gc.collect()
@@ -23,17 +23,53 @@ if settings is None:
     machine.reset()
 
 # Configuration from JSON
+#Wifi Settings
 SSID_TO_CONNECT = settings['wifi']['ssid']
 WIFI_PASSWORD = settings['wifi']['password']
-NEOPIXEL_PIN = settings.get('neopixel_pin', None)
-BUTTON_PIN = settings.get('button_pin', None)
+#Device Settings
+NEOPIXEL_PIN = settings.get('neopixel_pin', 5)
+BUTTON_PIN = settings.get('button_pin', 13)
+NUMLEDS = settings.get('numleds', 1)
+#OTA Settings
+GITUSER = settings['ota']['gituser']
+GITREPO = settings['ota']['gitrepo']
+GITDIR = settings['ota']['gitdir']
+GITFILES = settings['ota']['gitfiles']
+
+np = neopixel.NeoPixel(machine.Pin(NEOPIXEL_PIN), NUMLEDS)
 
 def codeOTA():
     import senko
-    OTA = senko.Senko(user="tghturner", repo="LUD-ESP01", working_dir="app", files=["main.py"])
+    OTA = senko.Senko(user=GITUSER, repo=GITREPO, working_dir=GITDIR, files=[GITFILES])
         
     if OTA.fetch():
         print("A newer version is available!")
+        # RGB Flash
+        for i in range(NUMLEDS):
+            np[i] = (0, 0, 0)  # GRB format
+
+        np[0] = (0, 255, 0)  # GRB format
+        np[1] = (255, 0, 0)  # GRB format
+        np[2] = (0, 0, 255)  # GRB format
+        np.write()
+        start = time.ticks_ms()
+        while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
+            machine.idle()
+        np[2] = (0, 255, 0)  # GRB format
+        np[0] = (255, 0, 0)  # GRB format
+        np[1] = (0, 0, 255)  # GRB format
+        np.write()
+        start = time.ticks_ms()
+        while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
+            machine.idle()
+        np[1] = (0, 255, 0)  # GRB format
+        np[2] = (255, 0, 0)  # GRB format
+        np[0] = (0, 0, 255)  # GRB format
+        np.write()
+        start = time.ticks_ms()
+        while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
+            machine.idle()
+            
         if OTA.update():
             print("Updated to the latest version! Rebooting...")
             machine.reset()
@@ -42,7 +78,8 @@ def codeOTA():
         wlan = network.WLAN(network.STA_IF)
         wlan.active(False)
         print("Wifi disabled. Restart device to check for updates again.")
-        import main
+        print("Running main program")
+        #import main
 
 
 def connect_to_wifi(ssid, password):
