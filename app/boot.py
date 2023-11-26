@@ -1,21 +1,7 @@
-import uos, machine, gc, network, time, json, neopixel
+import uos, machine, gc, network, time, json, neopixel, config
 
 # Collect garbage
 gc.collect()
-
-# Load settings from JSON file
-def load_settings():
-    try:
-        with open('settings.json', 'r') as f:
-            return json.load(f)
-    except OSError:
-        print("Error: Unable to open 'settings.json'.")
-        return None
-    except ValueError:
-        print("Error: Decoding JSON has failed.")
-        return None
-
-settings = load_settings()
 
 # Exit if settings could not be loaded
 if settings is None:
@@ -24,17 +10,17 @@ if settings is None:
 
 # Configuration from JSON
 #Wifi Settings
-SSID_TO_CONNECT = settings['wifi']['ssid']
-WIFI_PASSWORD = settings['wifi']['password']
+SSID_TO_CONNECT = config.settings['wifi']['ssid']
+WIFI_PASSWORD = config.settings['wifi']['password']
 #Device Settings
-NEOPIXEL_PIN = settings.get('neopixel_pin', 5)
-BUTTON_PIN = settings.get('button_pin', 13)
-NUMLEDS = settings.get('numleds', 1)
+NEOPIXEL_PIN = config.settings.get('neopixel_pin', 5)
+BUTTON_PIN = config.settings.get('button_pin', 13)
+NUMLEDS = config.settings.get('numleds', 1)
 #OTA Settings
-GITUSER = settings['ota']['gituser']
-GITREPO = settings['ota']['gitrepo']
-GITDIR = settings['ota']['gitdir']
-GITFILES = settings['ota']['gitfiles']
+GITUSER = config.settings['ota']['gituser']
+GITREPO = config.settings['ota']['gitrepo']
+GITDIR = config.settings['ota']['gitdir']
+GITFILES = config.settings['ota']['gitfiles']
 
 np = neopixel.NeoPixel(machine.Pin(NEOPIXEL_PIN), NUMLEDS)
 
