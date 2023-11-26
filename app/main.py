@@ -112,18 +112,19 @@ def button_pressed(pin):
 
 button.irq(trigger=machine.Pin.IRQ_FALLING, handler=button_pressed)
 
-
-# Main loop
-while True:
-    if current_effect == 0:
-        solid_color(np, (255, 0, 0))  # Example color: Red
-    elif current_effect == 1:
-        blink(np, (0, 255, 0), 500)  # Example color: Green
-    elif current_effect == 2:
-        fade(np, (0, 0, 255), 10, 50)  # Example color: Blue
-    elif current_effect == 3:
-        candle_effect(np, (255, 147, 41), flicker_intensity=30, delay=50)
-    elif current_effect == 4:
-        snow_effect(np, [(0, 0, 255), (255, 255, 255)], delay=500)
-    elif current_effect == 5:
-        rainbow(np, delay=20)
+def mainloop():
+    # Main loop
+    while True:
+        if current_effect == 0:
+            solid_color(np, (255, 0, 0))  # Example color: Red
+        elif current_effect == 1:
+            blink(np, (0, 255, 0), 500)  # Example color: Green
+        elif current_effect == 2:
+            fade(np, (0, 0, 255), 10, 50)  # Example color: Blue
+        elif current_effect == 3:
+            candle_effect(np, (255, 147, 41), flicker_intensity=30, delay=50)
+        elif current_effect == 4:
+            snow_effect(np, [(0, 0, 255), (255, 255, 255)], delay=500)
+        elif current_effect == 5:
+            rainbow(np, delay=20)
+mainloop()
