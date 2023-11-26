@@ -71,6 +71,7 @@ def codeOTA():
         wlan.active(False)
         print("Wifi disabled. Restart device to check for updates again.")
         print("Running main program")
+        gc.collect()
         import main
         main.mainloop()
 
