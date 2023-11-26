@@ -12,10 +12,9 @@ Also needs a settings.json file on device.
     "gituser": "tghturner",
     "gitrepo": "LUD-ESP01",
     "gitdir": "app",
-    "gitfiles": ["main.py","boot.py","config.py"] 
+    "gitfiles": ["main.py","boot.py","config.py","senko.py"]
   },
   "neopixel_pin": 5,
   "numleds": 3,
   "button_pin": 13
 }
-
