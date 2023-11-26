@@ -5,7 +5,7 @@ import time
 n = 7
 
 # Pin where NeoPixels are connected
-pin = 1
+pin = 5
 
 # Create a NeoPixel object
 np = neopixel.NeoPixel(machine.Pin(pin), n)
