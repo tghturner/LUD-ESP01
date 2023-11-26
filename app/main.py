@@ -1,11 +1,11 @@
 import machine, neopixel
-import time
+import time, config
 
 # Number of LEDs
-n = 7
+n = config.settings.get('numleds', 1)
 
 # Pin where NeoPixels are connected
-pin = 5
+pin = config.settings.get('neopixel_pin', 5)
 
 # Create a NeoPixel object
 np = neopixel.NeoPixel(machine.Pin(pin), n)
@@ -18,7 +18,7 @@ def set_color(r, g, b):
 
 while True:
     # Example: Set all LEDs to red
-    set_color(0, 0, 200)
+    set_color(0, 200, 200)
     # Add a delay to see the color
     start = time.ticks_ms()
     while time.ticks_diff(time.ticks_ms(), start) < 2000:  # Loop for 1 second
