@@ -55,6 +55,13 @@ def codeOTA():
         start = time.ticks_ms()
         while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
             machine.idle()
+        np[0] = (0, 255, 0)  # GRB format
+        np[1] = (255, 0, 0)  # GRB format
+        np[2] = (0, 0, 255)  # GRB format
+        np.write()
+        start = time.ticks_ms()
+        while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
+            machine.idle()
             
         if OTA.update():
             print("Updated to the latest version! Rebooting...")
