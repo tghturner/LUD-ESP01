@@ -16,11 +16,16 @@ def set_color(r, g, b):
         np[i] = (g, r, b)  # GRB format
     np.write()
 
-# Example: Set all LEDs to red
-set_color(255, 0, 0)
-
-# Add a delay to see the color
-time.sleep(5)
-
-# Example: Turn off all LEDs
-set_color(0, 0, 0)
+while True:
+    # Example: Set all LEDs to red
+    set_color(255, 0, 0)
+    # Add a delay to see the color
+    start = time.ticks_ms()
+    while time.ticks_diff(time.ticks_ms(), start) < 2000:  # Loop for 1 second
+        machine.idle()
+    # Example: Turn off all LEDs
+    set_color(0, 0, 0)
+    # Add a delay to see the color
+    start = time.ticks_ms()
+    while time.ticks_diff(time.ticks_ms(), start) < 1000:  # Loop for 1 second
+        machine.idle()
