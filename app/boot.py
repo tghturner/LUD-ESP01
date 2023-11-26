@@ -40,7 +40,7 @@ np = neopixel.NeoPixel(machine.Pin(NEOPIXEL_PIN), NUMLEDS)
 
 def codeOTA():
     import senko
-    OTA = senko.Senko(user=GITUSER, repo=GITREPO, working_dir=GITDIR, files=[GITFILES])
+    OTA = senko.Senko(user=GITUSER, repo=GITREPO, working_dir=GITDIR, files=GITFILES)
         
     if OTA.fetch():
         print("A newer version is available!")
