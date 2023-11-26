@@ -4,7 +4,7 @@ import uos, machine, gc, network, time, json, neopixel, config
 gc.collect()
 
 # Exit if settings could not be loaded
-if settings is None:
+if config.settings is None:
     print("Failed to load settings. Exiting...")
     machine.reset()
 
